@@ -1,12 +1,13 @@
 import React, { Component, Fragment } from 'react';
-import './App.css';
+import Header from './Components/Header/Header'
+import './App.scss';
+
+
 
 class App extends Component {
   render() {
     return (
-      <Fragment>
-        Header!
-      </Fragment>
+      <Header />
     );
   }
 }
