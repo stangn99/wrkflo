@@ -169,7 +169,7 @@ class Dashboard extends React.Component {
           <Typography variant="h4" gutterBottom component="h2">
             PENDING TASKS
           </Typography>
-          <Typography component="div" className={classes.chartContainer}>
+          <Typography component="div">
             <PendingData />
           </Typography>
           <Typography variant="h4" gutterBottom component="h2">
