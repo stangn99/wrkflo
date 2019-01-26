@@ -31,13 +31,13 @@ function SimpleList(props) {
           <ListItemIcon>
             <InboxIcon />
           </ListItemIcon>
-          <ListItemText primary="Inbox" />
+          <ListItemText primary="Create Task" />
         </ListItem>
         <ListItem button>
           <ListItemIcon>
             <DraftsIcon />
           </ListItemIcon>
-          <ListItemText primary="Drafts" />
+          <ListItemText primary="Create Project" />
         </ListItem>
       </List>
       <Divider />
