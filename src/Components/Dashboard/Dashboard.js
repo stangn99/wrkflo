@@ -16,6 +16,7 @@ import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import ListItem from '../ListItems/ListItems';
 import PendingData from '../PendingData/PendingData';
+import PendingProject from '../PendingProject/PendingProject';
 
 const drawerWidth = 240;
 
@@ -173,10 +174,10 @@ class Dashboard extends React.Component {
             <PendingData />
           </Typography>
           <Typography variant="h4" gutterBottom component="h2">
-            Products
+            PENDING PROJECTS
           </Typography>
+          <PendingProject />
           <div className={classes.tableContainer}>
-            {/* <SimpleTable /> */}
           </div>
         </main>
       </div>
