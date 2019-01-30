@@ -176,7 +176,7 @@ class Dashboard extends React.Component {
           <Typography variant="h4" gutterBottom component="h2">
             PENDING PROJECTS
           </Typography>
-          <PendingProject />
+            <PendingProject />
           <div className={classes.tableContainer}>
           </div>
         </main>
