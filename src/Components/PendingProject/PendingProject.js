@@ -158,11 +158,11 @@ MuiVirtualizedTable.defaultProps = {
 const WrappedVirtualizedTable = withStyles(styles)(MuiVirtualizedTable);
 
 const data = [
-  ['Frozen yoghurt', 159, 6.0, 24, 4.0],
-  ['Ice cream sandwich', 237, 9.0, 37, 4.3],
-  ['Eclair', 262, 16.0, 24, 6.0],
-  ['Cupcake', 305, 3.7, 67, 4.3],
-  ['Gingerbread', 356, 16.0, 49, 3.9],
+  ['Project 1', 159, 6.0, 24, 4.0],
+  ['Project 2', 237, 9.0, 37, 4.3],
+  ['Project 3', 262, 16.0, 24, 6.0],
+  ['Project 4', 305, 3.7, 67, 4.3],
+  ['Project 5', 356, 16.0, 49, 3.9],
 ];
 
 let id = 0;
@@ -178,7 +178,7 @@ for (let i = 0; i < 200; i += 1) {
   rows.push(createData(...randomSelection));
 }
 
-function PendingData() {
+function PendingProject() {
   return (
     <Paper style={{ height: 400, width: '100%' }}>
       <WrappedVirtualizedTable
@@ -222,4 +222,4 @@ function PendingData() {
   );
 }
 
-export default PendingData;
+export default PendingProject;
