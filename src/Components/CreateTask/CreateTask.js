@@ -1,88 +1,105 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import { withStyles } from '@material-ui/core/styles';
-import Button from '@material-ui/core/Button';
-import Dialog from '@material-ui/core/Dialog';
-import ListItemText from '@material-ui/core/ListItemText';
-import ListItem from '@material-ui/core/ListItem';
-import List from '@material-ui/core/List';
-import Divider from '@material-ui/core/Divider';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
-import IconButton from '@material-ui/core/IconButton';
-import Typography from '@material-ui/core/Typography';
+
+import 
+  { Dialog, 
+    DialogTitle, 
+    DialogContent, 
+    DialogContentText, 
+    TextField, 
+    AppBar, 
+    Toolbar, 
+    Slide,
+    Grid,
+    IconButton,
+    Typography,
+    withStyles,
+    Paper} from '@material-ui/core';
+
+
 import CloseIcon from '@material-ui/icons/Close';
-import Slide from '@material-ui/core/Slide';
 
-const styles = {
-  appBar: {
-    position: 'relative',
+const dialogStyle = (theme) => ({
+  root: {
+    flexGrow: 1
   },
-  flex: {
-    flex: 1,
+  AppBar: {
+    backgroundColor: '#165788'
   },
-};
+  Paper: {
+    paddingTop: 25,
+    paddingBottom: 25,
+    paddingLeft:50,
+    paddingRight: 50,
+    marginTop: 100,
+  }
+})
 
-function Transition(props) {
-  return <Slide direction="up" {...props} />;
-}
 
-class FullScreenDialog extends React.Component {
+class createTask extends React.Component {
   state = {
-    open: false,
-  };
+    task: {
+      taskID: '',
+      editorName: ''
+    }
+  }
 
-  handleClickOpen = () => {
-    this.setState({ open: true });
-  };
-
-  handleClose = () => {
-    this.setState({ open: false });
-  };
+  handleChange = (name) => ({target: {value}}) => {
+    this.setState({
+      task: {
+        ...this.state.task,        
+        [name]: value
+      }
+    })
+  }
 
   render() {
-    const { classes } = this.props;
+    const { classes } = this.props
     return (
       <div>
-        <Button variant="outlined" color="primary" onClick={this.handleClickOpen}>
-          Open full-screen dialog
-        </Button>
         <Dialog
           fullScreen
-          open={this.state.open}
-          onClose={this.handleClose}
-          TransitionComponent={Transition}
+          open={this.props.dialogState}
+          onClose={this.props.handleDialogClose}
+          TransitionComponent={this.props.Transition}
+          className={classes.flexGrow}
         >
-          <AppBar className={classes.appBar}>
-            <Toolbar>
-              <IconButton color="inherit" onClick={this.handleClose} aria-label="Close">
-                <CloseIcon />
-              </IconButton>
-              <Typography variant="h6" color="inherit" className={classes.flex}>
-                Sound
-              </Typography>
-              <Button color="inherit" onClick={this.handleClose}>
-                save
-              </Button>
-            </Toolbar>
+          <AppBar className={classes.AppBar}>
+              <Toolbar>
+                  <IconButton color="inherit" onClick={this.props.handleDialogClose} aria-label="Close">
+                    <CloseIcon />
+                  </IconButton>
+                  <Typography color="inherit">
+                    Add New Task
+                  </Typography>
+              </Toolbar>
           </AppBar>
-          <List>
-            <ListItem button>
-              <ListItemText primary="Phone ringtone" secondary="Titania" />
-            </ListItem>
-            <Divider />
-            <ListItem button>
-              <ListItemText primary="Default notification ringtone" secondary="Tethys" />
-            </ListItem>
-          </List>
+
+          <Grid container justify="center">
+              <Grid item xs={8}>
+                <Paper className={classes.Paper}>
+                  <DialogTitle id="form-dialog-title">Add Task</DialogTitle>
+                  <DialogContent>
+                    <DialogContentText>
+                      Complete the form below to add a new task.
+                    </DialogContentText>
+                    <TextField
+                      required
+                      id="standard-required"
+                      label="Editor Name"
+                      className={classes.textField}
+                      value={this.state.task.editor}
+                      onChange={this.handleChange('editorName')}
+                      margin="normal"
+                    />  
+                  </DialogContent>
+                </Paper>
+              </Grid>
+          </Grid>
         </Dialog>
       </div>
     );
   }
 }
 
-FullScreenDialog.propTypes = {
-  classes: PropTypes.object.isRequired,
-};
 
-export default withStyles(styles)(FullScreenDialog);
+export default withStyles(dialogStyle)(createTask);

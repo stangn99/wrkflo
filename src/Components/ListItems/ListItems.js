@@ -2,13 +2,12 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import List from '@material-ui/core/List';
-import Dialog from '@material-ui/core/Dialog';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import InboxIcon from '@material-ui/icons/Inbox';
 import DraftsIcon from '@material-ui/icons/Drafts';
-import Slide from '@material-ui/core/Slide';
+import CreateTask from '../CreateTask/CreateTask';
 
 
 const styles = theme => ({
@@ -19,25 +18,17 @@ const styles = theme => ({
   },
 });
 
-function ListItemLink(props) {
-  return <ListItem button component="a" {...props} />;
-}
-
-function Transition(props) {
-    return <Slide direction="up" {...props} />;
-}
 
 class SimpleList extends React.Component {
-
   state = {
-    open: false
+    open: true
   }
 
-  handleClickOpen = () => {
+  handleDialogOpen = () => {
     this.setState({ open: true });
   };
 
-  handleClose = () => {
+  handleDialogClose = () => {
     this.setState({ open: false });
   };
 
@@ -51,7 +42,7 @@ class SimpleList extends React.Component {
             <ListItemIcon>
               <InboxIcon />
             </ListItemIcon>
-            <ListItemText primary="Create Task" onClick={this.handleClickOpen} />
+            <ListItemText primary="Create Task" onClick={this.handleDialogOpen} />
           </ListItem>
           <ListItem button>
             <ListItemIcon>
@@ -60,12 +51,7 @@ class SimpleList extends React.Component {
             <ListItemText primary="Create Project" />
           </ListItem>
         </List>
-        <Dialog
-          fullScreen
-          open={this.state.open}
-          onClose={this.handleClose}
-          TransitionComponent={Transition}
-        ></Dialog>
+        <CreateTask handleDialogOpen={this.handleDialogOpen} handleDialogClose={this.handleDialogClose} dialogState={this.state.open}  />
       </div>
       
     )
