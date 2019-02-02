@@ -21,7 +21,7 @@ const styles = theme => ({
 
 class SimpleList extends React.Component {
   state = {
-    open: true
+    open: false
   }
 
   handleDialogOpen = () => {
