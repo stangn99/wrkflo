@@ -34,6 +34,10 @@ const dialogStyle = (theme) => ({
   }
 })
 
+function Transition(props) {
+  return <Slide direction="up" {...props} />;
+}
+
 
 class createTask extends React.Component {
   state = {
@@ -60,7 +64,7 @@ class createTask extends React.Component {
           fullScreen
           open={this.props.dialogState}
           onClose={this.props.handleDialogClose}
-          TransitionComponent={this.props.Transition}
+          TransitionComponent={Transition}
           className={classes.flexGrow}
         >
           <AppBar className={classes.AppBar}>
