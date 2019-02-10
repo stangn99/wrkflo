@@ -3,7 +3,9 @@ const express = require('express');
 const app = express();
 const index = require('./routes/healthcheck');
 
-app.use('/healthcheck', index.router);
+app.use('/healthcheck', index);
+app.use('/', index)
+
 app.use(bodyParser.json());
 
 
