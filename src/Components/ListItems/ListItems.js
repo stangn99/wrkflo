@@ -38,17 +38,17 @@ class SimpleList extends React.Component {
     return (
       <div className={classes.root}>
         <List component="nav">
-          <ListItem button>
+          <ListItem button onClick={this.handleDialogOpen}>
             <ListItemIcon>
               <InboxIcon />
             </ListItemIcon>
-            <ListItemText primary="Create Task" onClick={this.handleDialogOpen} />
+            <ListItemText primary="Create Task" />  
           </ListItem>
           <ListItem button>
             <ListItemIcon>
               <DraftsIcon />
             </ListItemIcon>
-            <ListItemText primary="Create Project" />
+            <ListItemText primary="Status Reports" />
           </ListItem>
         </List>
         <CreateTask handleDialogOpen={this.handleDialogOpen} handleDialogClose={this.handleDialogClose} dialogState={this.state.open}  />

@@ -15,12 +15,16 @@ import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import ListItem from '../ListItems/ListItems';
-import PendingData from '../PendingData/PendingData';
-import PendingProject from '../PendingProject/PendingProject';
+import PendingTasks from '../PendingTasks/PendingTasks';
+import CompletedTasks from '../CompletedTasks/CompletedTasks';
 
 const drawerWidth = 240;
 
 const styles = theme => ({
+  spaceDivider: {
+    marginTop: 35, 
+    marginBottom: 35
+  }, 
   root: {
     display: 'flex',
   },
@@ -35,6 +39,7 @@ const styles = theme => ({
     ...theme.mixins.toolbar,
   },
   appBar: {
+    backgroundColor: '#165788',
     zIndex: theme.zIndex.drawer + 1,
     transition: theme.transitions.create(['width', 'margin'], {
       easing: theme.transitions.easing.sharp,
@@ -167,16 +172,17 @@ class Dashboard extends React.Component {
         </Drawer>
         <main className={classes.content}>
           <div className={classes.appBarSpacer} />
-          <Typography variant="h4" gutterBottom component="h2">
-            PENDING TASKS
+          <Typography variant="h6" gutterBottom>
+            Pending Tasks
           </Typography>
           <Typography component="div">
-            <PendingData />
+            <PendingTasks />
           </Typography>
-          <Typography variant="h4" gutterBottom component="h2">
-            PENDING PROJECTS
+          <div className={classes.spaceDivider}></div>
+          <Typography variant="h6" gutterBottom>
+            Completed Tasks
           </Typography>
-            <PendingProject />
+            <CompletedTasks />
           <div className={classes.tableContainer}>
           </div>
         </main>
