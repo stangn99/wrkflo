@@ -7,4 +7,4 @@ router.route('/')
     res.send({ data: message });
   });
 
-exports.router = router;
+module.exports = router;
