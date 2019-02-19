@@ -1,5 +1,4 @@
 import React from 'react';
-
 import 
   { Dialog, 
     DialogTitle, 
@@ -10,13 +9,14 @@ import
     Toolbar, 
     Slide,
     Grid,
+    Button,
     IconButton,
     Typography,
     withStyles,
     Paper} from '@material-ui/core';
 
-
 import CloseIcon from '@material-ui/icons/Close';
+import axios from 'axios';
 
 const dialogStyle = (theme) => ({
   root: {
@@ -31,6 +31,9 @@ const dialogStyle = (theme) => ({
     paddingLeft:50,
     paddingRight: 50,
     marginTop: 100,
+  },
+  flex: {
+    flex: 1
   }
 })
 
@@ -38,22 +41,50 @@ function Transition(props) {
   return <Slide direction="up" {...props} />;
 }
 
-
 class createTask extends React.Component {
   state = {
     task: {
-      taskID: '',
+      taskName: '',
       editorName: ''
     }
   }
 
-  handleChange = (name) => ({target: {value}}) => {
+  onEditorNameChange = (name) => ({target: {value}}) => {
+    console.log(name);
     this.setState({
       task: {
         ...this.state.task,        
         [name]: value
       }
     })
+  }
+
+  onTaskNameChange = (name) => ({target: {value}}) => {
+    console.log(name);
+    this.setState({
+      task: {
+        ...this.state.task,
+        [name]: value
+      }
+    })
+  }
+
+  handleSave = async (e) => {
+    e.preventDefault();
+    try {
+      await axios.post('/task', {
+        taskName: this.state.task.taskName,
+        editorName: this.state.task.editorName
+      })
+      .then((data) => {
+        console.log(data);
+      })
+      .catch((err) => {
+        console.log(err);
+      })
+    } catch (err) {
+        console.log(err);
+    }
   }
 
   render() {
@@ -72,9 +103,12 @@ class createTask extends React.Component {
                   <IconButton color="inherit" onClick={this.props.handleDialogClose} aria-label="Close">
                     <CloseIcon />
                   </IconButton>
-                  <Typography color="inherit">
+                  <Typography color="inherit" className={classes.flex}>
                     Add New Task
                   </Typography>
+                  <Button color="inherit" onClick={this.handleSave}>
+                    save
+                  </Button>
               </Toolbar>
           </AppBar>
 
@@ -85,14 +119,23 @@ class createTask extends React.Component {
                   <DialogContent>
                     <DialogContentText>
                       Complete the form below to add a new task.
-                    </DialogContentText>
+                    </DialogContentText>                  
                     <TextField
                       required
                       id="standard-required"
-                      label="Editor Name"
+                      label="Editor's Name"
                       className={classes.textField}
-                      value={this.state.task.editor}
-                      onChange={this.handleChange('editorName')}
+                      value={this.state.task.editorName}
+                      onChange={this.onEditorNameChange('editorName')}
+                      margin="normal"
+                    />  
+                    <TextField
+                      required
+                      id="standard-required"
+                      label="Task Name"
+                      className={classes.textField}
+                      value={this.state.task.taskName}
+                      onChange={this.onTaskNameChange('taskName')}
                       margin="normal"
                     />  
                   </DialogContent>

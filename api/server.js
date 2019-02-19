@@ -1,15 +1,15 @@
 const bodyParser = require('body-parser');
 const express = require('express');
 const app = express();
-const index = require('./routes/healthcheck');
+const healthcheck = require('./routes/healthcheck');
+const task = require('./routes/task');
 
-app.use('/healthcheck', index);
 app.use(bodyParser.json());
-
-
+app.use('/healthcheck', healthcheck);
+app.use('/task', task)
 app.use((err, req, res, next) => {
-    console.log(err)
-})
+  res.status(500).json(err);
+});
 
 module.exports = app;
 
