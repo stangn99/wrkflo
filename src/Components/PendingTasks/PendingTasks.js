@@ -18,13 +18,11 @@ import IconButton from '@material-ui/core/IconButton';
 import Tooltip from '@material-ui/core/Tooltip';
 import DeleteIcon from '@material-ui/icons/Delete';
 import FilterListIcon from '@material-ui/icons/FilterList';
-import { lighten } from '@material-ui/core/styles/colorManipulator';
+import { toolbarStyles, styles } from '../Styles/materialStyles';
 
 
-let counter = 0;
-function createData(taskName, editorName) {
-  counter += 1;
-  return { id: counter, taskName, editorName };
+function createData(taskName, editorName, id) {
+  return { taskName, editorName, id };
 }
 
 function desc(a, b, orderBy) {
@@ -54,9 +52,6 @@ function getSorting(order, orderBy) {
 const rows = [
   { id: 'taskName', numeric: false, disablePadding: true, label: 'Task Name' },
   { id: 'editorName', numeric: true, disablePadding: false, label: 'Editor\'s Name'  },
-  // { id: 'fat', numeric: true, disablePadding: false, label: 'Fat (g)' },
-  // { id: 'carbs', numeric: true, disablePadding: false, label: 'Carbs (g)' },
-  // { id: 'protein', numeric: true, disablePadding: false, label: 'Protein (g)' },
 ];
 
 class EnhancedTableHead extends React.Component {
@@ -66,7 +61,6 @@ class EnhancedTableHead extends React.Component {
 
   render() {
     const { onSelectAllClick, order, orderBy, numSelected, rowCount } = this.props;
-
     return (
       <TableHead>
         <TableRow>
@@ -117,30 +111,6 @@ EnhancedTableHead.propTypes = {
   rowCount: PropTypes.number.isRequired,
 };
 
-const toolbarStyles = theme => ({
-  root: {
-    paddingRight: theme.spacing.unit,
-  },
-  highlight:
-    theme.palette.type === 'light'
-      ? {
-          color: theme.palette.secondary.main,
-          backgroundColor: lighten(theme.palette.secondary.light, 0.85),
-        }
-      : {
-          color: theme.palette.text.primary,
-          backgroundColor: theme.palette.secondary.dark,
-        },
-  spacer: {
-    flex: '1 1 100%',
-  },
-  actions: {
-    color: theme.palette.text.secondary,
-  },
-  title: {
-    flex: '0 0 auto',
-  },
-});
 
 let EnhancedTableToolbar = props => {
   const { numSelected, classes } = props;
@@ -158,7 +128,7 @@ let EnhancedTableToolbar = props => {
           </Typography>
         ) : (
           <Typography variant="h6" id="tableTitle">
-            Nutrition
+            Tasks
           </Typography>
         )}
       </div>
@@ -189,22 +159,10 @@ EnhancedTableToolbar.propTypes = {
 
 EnhancedTableToolbar = withStyles(toolbarStyles)(EnhancedTableToolbar);
 
-const styles = theme => ({
-  root: {
-    width: '100%',
-    marginTop: theme.spacing.unit * 3,
-  },
-  table: {
-    minWidth: 400,
-  },
-  tableWrapper: {
-    overflowX: 'auto',
-  },
-});
+
 
 
 // PENDING DATA COMPONENT
-
 class pendingData extends React.Component {
   state = {
     order: 'asc',
@@ -220,18 +178,21 @@ class pendingData extends React.Component {
     this.pullTasks();
   }
 
+  // function createData(taskName, editorName, id) {
+  //   return { taskName, editorName, id };
+  // }
+  
+
   pullTasks = async () => {
     try {      
       const res = await axios.get('/task')      
       const data = res.data.data;
-      const tasks = data.map((task) => {
-        return createData(task.taskName, task.editorName, task.id)
+      const tasks = data.map((task) => {        
+        return {...task}
       })
-      
-      this.setState({
-        data: [...tasks]
+    this.setState({
+        data: tasks
       })
-      
     } catch (e) {
       console.log(e)
     }
@@ -251,7 +212,7 @@ class pendingData extends React.Component {
 
   handleSelectAllClick = event => {
     if (event.target.checked) {
-      this.setState(state => ({ selected: state.data.map(n => n.id) }));
+      this.setState(state => ({ selected: state.data.map(n => n._id) }));
       return;
     }
     this.setState({ selected: [] });
@@ -274,7 +235,6 @@ class pendingData extends React.Component {
         selected.slice(selectedIndex + 1),
       );
     }
-
     this.setState({ selected: newSelected });
   };
 
@@ -310,15 +270,16 @@ class pendingData extends React.Component {
               {stableSort(data, getSorting(order, orderBy))
                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                 .map(n => {
-                  const isSelected = this.isSelected(n.id);
+                  console.log(n)
+                  const isSelected = this.isSelected(n._id);
                   return (
                     <TableRow
                       hover
-                      onClick={event => this.handleClick(event, n.id)}
+                      onClick={event => this.handleClick(event, n._id)}
                       role="checkbox"
                       aria-checked={isSelected}
                       tabIndex={-1}
-                      key={n.id}
+                      key={n._id}
                       selected={isSelected}
                     >
                       <TableCell padding="checkbox">

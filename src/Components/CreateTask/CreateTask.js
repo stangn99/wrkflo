@@ -1,41 +1,9 @@
 import React from 'react';
-import 
-  { Dialog, 
-    DialogTitle, 
-    DialogContent, 
-    DialogContentText, 
-    TextField, 
-    AppBar, 
-    Toolbar, 
-    Slide,
-    Grid,
-    Button,
-    IconButton,
-    Typography,
-    withStyles,
-    Paper} from '@material-ui/core';
-
-import CloseIcon from '@material-ui/icons/Close';
 import axios from 'axios';
+import { Dialog, DialogTitle, DialogContent, DialogContentText, TextField, AppBar, Toolbar, Slide, Grid, Button, IconButton, Typography, withStyles, Paper} from '@material-ui/core';
+import CloseIcon from '@material-ui/icons/Close';
+import { dialogStyle } from '../Styles/materialStyles';
 
-const dialogStyle = (theme) => ({
-  root: {
-    flexGrow: 1
-  },
-  AppBar: {
-    backgroundColor: '#165788'
-  },
-  Paper: {
-    paddingTop: 25,
-    paddingBottom: 25,
-    paddingLeft:50,
-    paddingRight: 50,
-    marginTop: 100,
-  },
-  flex: {
-    flex: 1
-  }
-})
 
 function Transition(props) {
   return <Slide direction="up" {...props} />;
