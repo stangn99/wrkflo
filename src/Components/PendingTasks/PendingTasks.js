@@ -53,7 +53,7 @@ function getSorting(order, orderBy) {
 
 const rows = [
   { id: 'taskName', numeric: false, disablePadding: true, label: 'Task Name' },
-  { id: 'editorName', numeric: true, disablePadding: false, label: 'Editor\'\s Name'  },
+  { id: 'editorName', numeric: true, disablePadding: false, label: 'Editor\'s Name'  },
   // { id: 'fat', numeric: true, disablePadding: false, label: 'Fat (g)' },
   // { id: 'carbs', numeric: true, disablePadding: false, label: 'Carbs (g)' },
   // { id: 'protein', numeric: true, disablePadding: false, label: 'Protein (g)' },
@@ -215,23 +215,28 @@ class pendingData extends React.Component {
     rowsPerPage: 5,
   };
 
+
   async componentDidMount() {
+    this.pullTasks();
+  }
+
+  pullTasks = async () => {
     try {      
       const res = await axios.get('/task')      
       const data = res.data.data;
-      
       const tasks = data.map((task) => {
-        return [createData(task.taskName, task.editorName)]
+        return createData(task.taskName, task.editorName, task.id)
       })
       
       this.setState({
-        data: tasks
+        data: [...tasks]
       })
-
+      
     } catch (e) {
       console.log(e)
     }
   }
+
 
   handleRequestSort = (event, property) => {
     const orderBy = property;
@@ -288,7 +293,6 @@ class pendingData extends React.Component {
     const { data, order, orderBy, selected, rowsPerPage, page } = this.state;
     const emptyRows = rowsPerPage - Math.min(rowsPerPage, data.length - page * rowsPerPage);
 
-    console.log(data);
     return (
       <Paper className={classes.root}>
         <EnhancedTableToolbar numSelected={selected.length} />

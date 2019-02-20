@@ -102,6 +102,7 @@ const styles = theme => ({
   },
 });
 
+
 class Dashboard extends React.Component {
   state = {
     open: true,
@@ -176,7 +177,7 @@ class Dashboard extends React.Component {
             Pending Tasks
           </Typography>
           <Typography component="div">
-            <PendingTasks />
+            <PendingTasks pullTasks={this.pullTasks} />
           </Typography>
           <div className={classes.spaceDivider}></div>
           <Typography variant="h6" gutterBottom>
