@@ -3,27 +3,11 @@ import axios from 'axios';
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
-import Table from '@material-ui/core/Table';
-import TableBody from '@material-ui/core/TableBody';
-import TableCell from '@material-ui/core/TableCell';
-import TableHead from '@material-ui/core/TableHead';
-import TablePagination from '@material-ui/core/TablePagination';
-import TableRow from '@material-ui/core/TableRow';
-import TableSortLabel from '@material-ui/core/TableSortLabel';
-import Toolbar from '@material-ui/core/Toolbar';
-import Typography from '@material-ui/core/Typography';
-import Paper from '@material-ui/core/Paper';
-import Checkbox from '@material-ui/core/Checkbox';
-import IconButton from '@material-ui/core/IconButton';
-import Tooltip from '@material-ui/core/Tooltip';
+import { Table, TableBody, TableCell, TableHead, TablePagination, TableRow, TableSortLabel, Toolbar, Typography, Paper, Checkbox, IconButton, Tooltip }  from '@material-ui/core';
 import DeleteIcon from '@material-ui/icons/Delete';
 import FilterListIcon from '@material-ui/icons/FilterList';
 import { toolbarStyles, styles } from '../Styles/materialStyles';
 
-
-function createData(taskName, editorName, id) {
-  return { taskName, editorName, id };
-}
 
 function desc(a, b, orderBy) {
   if (b[orderBy] < a[orderBy]) {
@@ -173,30 +157,32 @@ class pendingData extends React.Component {
     rowsPerPage: 5,
   };
 
-
-  async componentDidMount() {
-    this.pullTasks();
+  componentDidMount() {
+    console.log("mounted", this.props)
   }
 
-  // function createData(taskName, editorName, id) {
-  //   return { taskName, editorName, id };
+  componentDidUpdate() {
+    console.log("updated", this.props)
+  }
+
+  // async componentDidMount() {
+  //   this.pullTasks();
   // }
-  
 
-  pullTasks = async () => {
-    try {      
-      const res = await axios.get('/task')      
-      const data = res.data.data;
-      const tasks = data.map((task) => {        
-        return {...task}
-      })
-    this.setState({
-        data: tasks
-      })
-    } catch (e) {
-      console.log(e)
-    }
-  }
+  // pullTasks = async () => {
+  //   try {      
+  //     const res = await axios.get('/task')      
+  //     const data = res.data.data;
+  //     const tasks = data.map((task) => {        
+  //       return {...task}
+  //     })
+  //   this.setState({
+  //       data: tasks
+  //     })
+  //   } catch (e) {
+  //     console.log(e)
+  //   }
+  // }
 
 
   handleRequestSort = (event, property) => {
@@ -270,7 +256,6 @@ class pendingData extends React.Component {
               {stableSort(data, getSorting(order, orderBy))
                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                 .map(n => {
-                  console.log(n)
                   const isSelected = this.isSelected(n._id);
                   return (
                     <TableRow
@@ -320,9 +305,4 @@ class pendingData extends React.Component {
   }
 }
 
-pendingData.propTypes = {
-  classes: PropTypes.object.isRequired,
-};
-
 export default withStyles(styles)(pendingData);
-

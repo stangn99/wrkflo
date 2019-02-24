@@ -44,9 +44,6 @@ class createTask extends React.Component {
         taskName: this.state.task.taskName,
         editorName: this.state.task.editorName
       })
-      .then((data) => {
-        console.log(data);
-      })
       .catch((err) => {
         console.log(err);
       })

@@ -1,10 +1,16 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import store from './Store/store';
+import { Provider } from 'react-redux';
 import './index.css';
-// import App from './App';
 import AppRouter from './Components/Routers/AppRouter';
 import * as serviceWorker from './serviceWorker';
 
-ReactDOM.render(<AppRouter />, document.getElementById('root'));
+const jsx = (
+    <Provider store={store}>
+      <AppRouter />
+    </Provider>
+  )
+ReactDOM.render(jsx, document.getElementById('root'));
 
 serviceWorker.unregister();
