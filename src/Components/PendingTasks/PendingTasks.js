@@ -1,5 +1,5 @@
 import React from 'react';
-import axios from 'axios';
+// import axios from 'axios';
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
@@ -158,11 +158,11 @@ class pendingData extends React.Component {
   };
 
   componentDidMount() {
-    console.log("mounted", this.props)
+   console.log("mounted:", this.props)
   }
 
   componentDidUpdate() {
-    console.log("updated", this.props)
+    const data = this.props.tasks
   }
 
   // async componentDidMount() {
@@ -253,9 +253,10 @@ class pendingData extends React.Component {
               rowCount={data.length}
             />
             <TableBody>
-              {stableSort(data, getSorting(order, orderBy))
+              {stableSort(this.props.tasks, getSorting(order, orderBy))
                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                 .map(n => {
+                  console.log("n", n);
                   const isSelected = this.isSelected(n._id);
                   return (
                     <TableRow

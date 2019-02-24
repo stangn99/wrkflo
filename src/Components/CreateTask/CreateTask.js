@@ -37,13 +37,19 @@ class createTask extends React.Component {
     })
   }
 
+  handleCloseAndRefresh = () => {
+    this.props.handleDialogClose();
+    this.props.pullTasks();
+  }
+
   handleSave = async (e) => {
     e.preventDefault();
     try {
       await axios.post('/task', {
         taskName: this.state.task.taskName,
         editorName: this.state.task.editorName
-      })
+      }, this.handleCloseAndRefresh())
+      
       .catch((err) => {
         console.log(err);
       })
@@ -71,7 +77,9 @@ class createTask extends React.Component {
                   <Typography color="inherit" className={classes.flex}>
                     Add New Task
                   </Typography>
-                  <Button color="inherit" onClick={this.handleSave}>
+                  <Button color="inherit" 
+                    onClick={this.handleSave}
+                  >
                     save
                   </Button>
               </Toolbar>
