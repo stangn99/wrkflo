@@ -26,7 +26,7 @@ router.route('/')
 
     try {
       const doc = await task.save();
-      console.log(doc, "added");
+      res.status(201).send({data: [doc]})
     } catch (err) {
       next (err);
     }

@@ -24,7 +24,6 @@ class SimpleList extends React.Component {
 
  
   render() {
-    {console.log(this.props)}
     const { classes } = this.props;
     return (
       <div className={classes.root}>
@@ -42,7 +41,7 @@ class SimpleList extends React.Component {
             <ListItemText primary="Status Reports" />
           </ListItem>
         </List>
-        <CreateTask handleDialogOpen={this.handleDialogOpen} handleDialogClose={this.handleDialogClose} dialogState={this.state.open} pullTasks={this.props.pullTasks} />
+        <CreateTask handleDialogOpen={this.handleDialogOpen} handleDialogClose={this.handleDialogClose} dialogState={this.state.open} getTasks={this.props.getTasks} />
       </div>
       
     )

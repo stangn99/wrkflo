@@ -15,15 +15,14 @@ import ListItem from '../ListItems/ListItems';
 class Dashboard extends React.Component {
   state = {
     open: true, 
-    data: []
+    tasks: [],
   };
 
-  componentDidMount() {
-    this.pullTasks();
+  async componentDidMount() {
+    await this.getTasks();
   }
 
-  pullTasks = async () => {
-    console.log("Pull tasks actually ran")
+  getTasks = async () => {
     try {      
       const res = await axios.get('/task')      
       const data = res.data.data;
@@ -31,7 +30,7 @@ class Dashboard extends React.Component {
         return {...task}
       })
       this.setState({
-        data: tasks
+        tasks: tasks
       })
     } catch (e) {
       console.log(e)
@@ -98,7 +97,7 @@ class Dashboard extends React.Component {
             </IconButton>
           </div>
           <Divider />
-          {<List><ListItem pullTasks={this.pullTasks} /></List>}
+          {<List><ListItem getTasks={this.getTasks} /></List>}
           <Divider />
           {/* <List>{secondaryListItems}</List> */}
         </Drawer>
@@ -108,7 +107,7 @@ class Dashboard extends React.Component {
             Pending Tasks
           </Typography>
           <Typography component="div">
-            <PendingTasks tasks={this.state.data} pullTasks={this.pullTasks} />
+            <PendingTasks tasks={this.state.tasks} />
           </Typography>
           <div className={classes.spaceDivider}></div>
           <Typography variant="h6" gutterBottom>

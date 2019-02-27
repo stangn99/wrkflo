@@ -2,7 +2,8 @@ import { lighten } from '@material-ui/core/styles/colorManipulator';
 
 export const dialogStyle = (theme) => ({
   root: {
-    flexGrow: 1
+    flexGrow: 1, 
+    flexWrap: 'wrap'
   },
   AppBar: {
     backgroundColor: '#165788'
@@ -10,12 +11,20 @@ export const dialogStyle = (theme) => ({
   Paper: {
     paddingTop: 25,
     paddingBottom: 25,
-    paddingLeft:50,
-    paddingRight: 50,
+    paddingLeft:25,
+    paddingRight: 25,
     marginTop: 100,
   },
   flex: {
     flex: 1
+  }, 
+  textField: {
+    flexBasis: 200,
+    marginLeft: 25,
+    marginRight: 25
+  }, 
+  pSpacer: {
+    marginBottom: 25
   }
 })
 

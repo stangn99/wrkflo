@@ -148,41 +148,19 @@ EnhancedTableToolbar = withStyles(toolbarStyles)(EnhancedTableToolbar);
 
 // PENDING DATA COMPONENT
 class pendingData extends React.Component {
+
   state = {
     order: 'asc',
     orderBy: 'taskName',
     selected: [],
-    data: [],
+    tasks: [],
     page: 0,
     rowsPerPage: 5,
   };
 
   componentDidMount() {
-   console.log("mounted:", this.props)
+    console.log(this.props);
   }
-
-  componentDidUpdate() {
-    const data = this.props.tasks
-  }
-
-  // async componentDidMount() {
-  //   this.pullTasks();
-  // }
-
-  // pullTasks = async () => {
-  //   try {      
-  //     const res = await axios.get('/task')      
-  //     const data = res.data.data;
-  //     const tasks = data.map((task) => {        
-  //       return {...task}
-  //     })
-  //   this.setState({
-  //       data: tasks
-  //     })
-  //   } catch (e) {
-  //     console.log(e)
-  //   }
-  // }
 
 
   handleRequestSort = (event, property) => {
@@ -198,7 +176,7 @@ class pendingData extends React.Component {
 
   handleSelectAllClick = event => {
     if (event.target.checked) {
-      this.setState(state => ({ selected: state.data.map(n => n._id) }));
+      this.setState(state => ({ selected: this.props.tasks.map(n => n._id) }));
       return;
     }
     this.setState({ selected: [] });
@@ -236,8 +214,9 @@ class pendingData extends React.Component {
 
   render() {
     const { classes } = this.props;
-    const { data, order, orderBy, selected, rowsPerPage, page } = this.state;
-    const emptyRows = rowsPerPage - Math.min(rowsPerPage, data.length - page * rowsPerPage);
+    const {order, orderBy, selected, rowsPerPage, page } = this.state;
+    const tasks = this.props.tasks
+    const emptyRows = rowsPerPage - Math.min(rowsPerPage, tasks.length - page * rowsPerPage);
 
     return (
       <Paper className={classes.root}>
@@ -250,13 +229,12 @@ class pendingData extends React.Component {
               orderBy={orderBy}
               onSelectAllClick={this.handleSelectAllClick}
               onRequestSort={this.handleRequestSort}
-              rowCount={data.length}
+              rowCount={tasks.length}
             />
             <TableBody>
-              {stableSort(this.props.tasks, getSorting(order, orderBy))
+              {stableSort(tasks, getSorting(order, orderBy))
                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                 .map(n => {
-                  console.log("n", n);
                   const isSelected = this.isSelected(n._id);
                   return (
                     <TableRow
@@ -289,7 +267,7 @@ class pendingData extends React.Component {
         <TablePagination
           rowsPerPageOptions={[5, 10, 25]}
           component="div"
-          count={data.length}
+          count={tasks.length}
           rowsPerPage={rowsPerPage}
           page={page}
           backIconButtonProps={{
