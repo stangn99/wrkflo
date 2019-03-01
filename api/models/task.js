@@ -1,60 +1,14 @@
+// 1. Require mongoose as the first step
 const mongoose = require('mongoose');
 
+// 2. Create the schema for the task
 const taskSchema = new mongoose.Schema({
-  taskID: { 
-    type: String, 
-    required: true
-  },
-  taskName: {
-    type: String,
-    required: true
-  },
-  clientName: {
-    type: String,
-    required: true
-  },
-  dateReceived: {
-    type: String,
-    required: true
-  },
-  requestedPublishDate: {
-    type: String,
-    required: true
-  },
-  effort: {
-    type: Number,
-    required: true
-  },
-  urgency: {
-    type: Number,
-    required: true
-  },
-  aodaCompliant: {
-    type: Boolean,
-    required: true
-  },
-  rejected: {
-    type: Boolean,
-    required: true
-  },
-  netNewPage: {
-    type: Boolean,
-    required: true
-  },
-  wpPageTitle: {
-    type: String,
-    required: true
-  },
-  wpDesc: {
-    type: String,
-    required: true
-  },
-  fileUploadRequired: {
-    type: Boolean,
-    required: true
-  }
+  taskName: String, 
+  editorName: String
 });
 
-const Task = mongoose.model('Task', taskSchema);
+// 3. connect schema to the model
+const Task = mongoose.model("task", taskSchema);
 
+// 4. export the connected schema+model
 module.exports = Task;

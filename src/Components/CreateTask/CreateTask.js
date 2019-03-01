@@ -15,15 +15,8 @@ function Transition(props) {
 
 class createTask extends React.Component {
   state = {
-    task: {
-      taskName: '',
-      editorName: ''
-    },
-    amount: '',
-    password: '',
-    weight: '',
-    weightRange: '',
-    showPassword: false,
+    taskName: '', 
+    editorName: ''
   }
 
   componentDidMount() {
@@ -34,35 +27,12 @@ class createTask extends React.Component {
     this.setState({ [prop]: event.target.value });
   };
 
-  handleClickShowPassword = () => {
-    this.setState(state => ({ showPassword: !state.showPassword }));
-  };
-
-  onEditorNameChange = (name) => ({target: {value}}) => {
-    this.setState({
-      task: {
-        ...this.state.task,        
-        [name]: value
-      }
-    })
-  }
-
-  onTaskNameChange = (name) => ({target: {value}}) => {
-    this.setState({
-      task: {
-        ...this.state.task,
-        [name]: value
-      }
-    })
-  }
-
-
   handleSave = async (e) => {
     e.preventDefault();
     try {
       await axios.post('/task', {
-        taskName: this.state.task.taskName,
-        editorName: this.state.task.editorName
+        taskName: this.state.taskName,
+        editorName: this.state.editorName
       })
       .then((res) => {
         if (res.status === 201) {
@@ -124,18 +94,34 @@ class createTask extends React.Component {
                   <DialogContent>
                     <DialogContentText className={classes.pSpacer}>
                       Complete the form below to add a new task.
-                    </DialogContentText>                  
+                    </DialogContentText>   
                       <TextField
-                        id="outlined-simple-start-adornment"
+                        id="editorName"
                         className={classNames(classes.margin, classes.textField)}
                         variant="outlined"
-                        label="With outlined TextField"
-                        InputProps={{
-                          startAdornment: <InputAdornment position="start">Kg</InputAdornment>,
+                        label="Editor's Name"
+                        value={this.state.editorName}
+                        onChange={this.handleChange('editorName')}
+                      />               
+                      <TextField
+                        id="taskName"
+                        className={classNames(classes.margin, classes.textField)}
+                        variant="outlined"
+                        label="Task Name"
+                        value={this.state.taskName}
+                        onChange={this.handleChange('taskName')}
+                      />
+                      <TextField
+                        id="date"
+                        label="Birthday"
+                        type="date"
+                        defaultValue="2017-05-24"
+                        className={classes.textField}
+                        InputLabelProps={{
+                          shrink: true,
                         }}
                       />
-
-                      <TextField
+                      {/* <TextField
                         select
                         className={classNames(classes.margin, classes.textField)}
                         variant="outlined"
@@ -197,7 +183,7 @@ class createTask extends React.Component {
                             </InputAdornment>
                           ),
                         }}
-                      />
+                      /> */}
                   </DialogContent>
                 </Paper>
               </Grid>
