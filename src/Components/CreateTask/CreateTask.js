@@ -1,11 +1,11 @@
 import React from 'react';
 import axios from 'axios';
+import moment from 'moment';
 import classNames from 'classnames';
-import { Dialog, DialogTitle, DialogContent, DialogContentText, MenuItem, InputAdornment, TextField, AppBar, Toolbar, Slide, Grid, Button, IconButton, Typography, withStyles, Paper} from '@material-ui/core';
+import { Dialog, DialogTitle, DialogContent, DialogContentText, TextField, AppBar, Toolbar, Slide, Grid, Button, IconButton, Typography, withStyles, Paper} from '@material-ui/core';
 import CloseIcon from '@material-ui/icons/Close';
 import { dialogStyle } from '../Styles/materialStyles';
-import Visibility from '@material-ui/icons/Visibility';
-import VisibilityOff from '@material-ui/icons/VisibilityOff';
+
 
 
 
@@ -16,15 +16,25 @@ function Transition(props) {
 class createTask extends React.Component {
   state = {
     taskName: '', 
-    editorName: ''
+    editorName: '', 
+    clientName: '', 
+    requestTitle: '', 
+    publishDate: undefined
   }
 
   componentDidMount() {
-    console.log("create props:", this.props)
+    this.setState({
+      publishDate: this.getTodaysDate()
+    })
   }
 
   handleChange = prop => event => {
     this.setState({ [prop]: event.target.value });
+  };
+
+  handleDateChange = date => {
+    const selectedDate = date.target.value
+    this.setState({ publishDate: selectedDate });
   };
 
   handleSave = async (e) => {
@@ -32,7 +42,11 @@ class createTask extends React.Component {
     try {
       await axios.post('/task', {
         taskName: this.state.taskName,
-        editorName: this.state.editorName
+        editorName: this.state.editorName, 
+        clientName: this.state.clientName, 
+        requestTitle: this.state.requestTitle, 
+        requestDate: this.getTodaysDate(), 
+        publishDate: this.state.publishDate
       })
       .then((res) => {
         if (res.status === 201) {
@@ -45,6 +59,11 @@ class createTask extends React.Component {
     }
   }
 
+  getTodaysDate = () => {
+    const d = moment();
+    return d.format('YYYY-MM-DD')
+  }
+  
   
   render() {
     const ranges = [
@@ -102,7 +121,7 @@ class createTask extends React.Component {
                         label="Editor's Name"
                         value={this.state.editorName}
                         onChange={this.handleChange('editorName')}
-                      />               
+                      />              
                       <TextField
                         id="taskName"
                         className={classNames(classes.margin, classes.textField)}
@@ -112,78 +131,34 @@ class createTask extends React.Component {
                         onChange={this.handleChange('taskName')}
                       />
                       <TextField
-                        id="date"
-                        label="Birthday"
+                        id="clientName"
+                        className={classNames(classes.margin, classes.textField)}
+                        variant="outlined"
+                        label="Requestor's Name"
+                        value={this.state.clientName}
+                        onChange={this.handleChange('clientName')}
+                      />
+                      <TextField
+                        id="requestTitle"
+                        className={classNames(classes.margin, classes.textField)}
+                        variant="outlined"
+                        label="Request Title"
+                        value={this.state.requestTitle}
+                        onChange={this.handleChange('requestTitle')}
+                      />
+                      <TextField
+                        id="publishDate"
+                        label="Publish Date"
                         type="date"
-                        defaultValue="2017-05-24"
+                        defaultValue={this.getTodaysDate()}
+                        onChange={this.handleDateChange}
                         className={classes.textField}
                         InputLabelProps={{
                           shrink: true,
                         }}
                       />
-                      {/* <TextField
-                        select
-                        className={classNames(classes.margin, classes.textField)}
-                        variant="outlined"
-                        label="With Select"
-                        value={this.state.weightRange}
-                        onChange={this.handleChange('weightRange')}
-                        InputProps={{
-                          startAdornment: <InputAdornment position="start">Kg</InputAdornment>,
-                        }}
-                      >
-                        {ranges.map(option => (
-                          <MenuItem key={option.value} value={option.value}>
-                            {option.label}
-                          </MenuItem>
-                        ))}
-                      </TextField>
-                      <TextField
-                        id="outlined-adornment-amount"
-                        className={classNames(classes.margin, classes.textField)}
-                        variant="outlined"
-                        label="Amount"
-                        value={this.state.amount}
-                        onChange={this.handleChange('amount')}
-                        InputProps={{
-                          startAdornment: <InputAdornment position="start">$</InputAdornment>,
-                        }}
-                      />
-
-                      <TextField
-                        id="outlined-adornment-weight"
-                        className={classNames(classes.margin, classes.textField)}
-                        variant="outlined"
-                        label="Weight"
-                        value={this.state.weight}
-                        onChange={this.handleChange('weight')}
-                        helperText="Weight"
-                        InputProps={{
-                          endAdornment: <InputAdornment position="end">Kg</InputAdornment>,
-                        }}
-                      />
-
-                      <TextField
-                        id="outlined-adornment-password"
-                        className={classNames(classes.margin, classes.textField)}
-                        variant="outlined"
-                        type={this.state.showPassword ? 'text' : 'password'}
-                        label="Password"
-                        value={this.state.password}
-                        onChange={this.handleChange('password')}
-                        InputProps={{
-                          endAdornment: (
-                            <InputAdornment position="end">
-                              <IconButton
-                                aria-label="Toggle password visibility"
-                                onClick={this.handleClickShowPassword}
-                              >
-                                {this.state.showPassword ? <VisibilityOff /> : <Visibility />}
-                              </IconButton>
-                            </InputAdornment>
-                          ),
-                        }}
-                      /> */}
+                     
+                    
                   </DialogContent>
                 </Paper>
               </Grid>

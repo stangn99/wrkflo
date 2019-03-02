@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const TaskSchema = require('../models/TaskSchema');
+const TaskSchema = require('../models/task');
 
 router.route('/')
   .get(async(req, res, next) => {
@@ -18,10 +18,14 @@ router.route('/')
   })
 
   .post(async(req, res, next) => {
-    const { taskName, editorName } = req.body;
+    const { taskName, editorName, clientName, requestTitle, requestDate , publishDate } = req.body;
     const task = new TaskSchema({
       taskName, 
-      editorName
+      editorName, 
+      clientName, 
+      requestTitle, 
+      requestDate, 
+      publishDate
     });
 
     try {

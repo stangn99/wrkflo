@@ -3,8 +3,30 @@ const mongoose = require('mongoose');
 
 // 2. Create the schema for the task
 const taskSchema = new mongoose.Schema({
-  taskName: String, 
-  editorName: String
+  taskName: {
+    type: String, 
+    required: true
+  },
+  editorName: {
+    type: String, 
+    required: true
+  },
+  clientName: {
+    type: String, 
+    required: true
+  },
+  requestTitle: {
+    type: String, 
+    required: true
+  },
+  requestDate: {
+    type: Date, 
+    default: new Date()
+  },
+  publishDate: {
+    type: Date, 
+    required: true
+  }
 });
 
 // 3. connect schema to the model

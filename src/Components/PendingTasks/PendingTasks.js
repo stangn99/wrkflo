@@ -35,7 +35,11 @@ function getSorting(order, orderBy) {
 
 const rows = [
   { id: 'taskName', numeric: false, disablePadding: true, label: 'Task Name' },
-  { id: 'editorName', numeric: true, disablePadding: false, label: 'Editor\'s Name'  },
+  { id: 'editorName', numeric: false, disablePadding: false, label: 'Editor\'s Name'  },
+  { id: 'clientName', numeric: false, disablePadding: false, label: 'Client\'s Name'  },
+  { id: 'requestTitle', numeric: false, disablePadding: false, label: 'Request Title'  },
+  { id: 'requestDate', numeric: false, disablePadding: false, label: 'Request Date'  },
+  { id: 'publishDate', numeric: false, disablePadding: false, label: 'Expected Live Date'  }
 ];
 
 class EnhancedTableHead extends React.Component {
@@ -249,10 +253,12 @@ class pendingData extends React.Component {
                       <TableCell padding="checkbox">
                         <Checkbox checked={isSelected} />
                       </TableCell>
-                      <TableCell component="th" scope="row" padding="none">
-                        {n.taskName}
-                      </TableCell>
-                      <TableCell align="right">{n.editorName}</TableCell>
+                      <TableCell component="th" scope="row" padding="none">{n.taskName}</TableCell>
+                      <TableCell align="left">{n.editorName}</TableCell>
+                      <TableCell align="left">{n.clientName}</TableCell>
+                      <TableCell align="left">{n.requestTitle}</TableCell>
+                      <TableCell align="left">{n.requestDate}</TableCell>
+                      <TableCell align="left">{n.publishDate}</TableCell>
                     </TableRow>
                   );
                 })}
