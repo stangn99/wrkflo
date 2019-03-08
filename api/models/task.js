@@ -1,5 +1,7 @@
 // 1. Require mongoose as the first step
 const mongoose = require('mongoose');
+const moment = require('moment')
+
 
 // 2. Create the schema for the task
 const taskSchema = new mongoose.Schema({
@@ -20,11 +22,11 @@ const taskSchema = new mongoose.Schema({
     required: true
   },
   requestDate: {
-    type: Date, 
-    default: new Date()
+    type: String, 
+    default: moment().format('YYYY-MM-DD')
   },
   publishDate: {
-    type: Date, 
+    type: String, 
     required: true
   }
 });

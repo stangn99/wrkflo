@@ -17,6 +17,12 @@ router.route('/')
     }
   })
 
+  // .get('/:task_id', async(req, res, next) => {
+  //   const taskId = req.params.taskId;
+
+  //   console.log(taskId)
+  // })
+
   .post(async(req, res, next) => {
     const { taskName, editorName, clientName, requestTitle, requestDate , publishDate } = req.body;
     const task = new TaskSchema({

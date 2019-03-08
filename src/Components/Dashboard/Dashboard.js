@@ -37,14 +37,8 @@ class Dashboard extends React.Component {
     }
   }
 
-
-  handleDrawerOpen = () => {
-    this.setState({ open: true });
-  };
-
-  handleDrawerClose = () => {
-    this.setState({ open: false });
-  };
+  handleDrawerOpen = () => this.setState({ open: true });
+  handleDrawerClose = () => this.setState({ open: false });
 
   render() {
     const { classes } = this.props;
@@ -68,15 +62,7 @@ class Dashboard extends React.Component {
             >
               <MenuIcon />
             </IconButton>
-            <Typography
-              component="h1"
-              variant="h6"
-              color="inherit"
-              noWrap
-              className={classes.title}
-            >
-              Dashboard
-            </Typography>
+            <Typography component="h1" variant="h6" color="inherit" noWrap className={classes.title}>Dashboard</Typography>
             <IconButton color="inherit">
               <Badge badgeContent={4} color="secondary">
                 <NotificationsIcon />
@@ -92,14 +78,11 @@ class Dashboard extends React.Component {
           open={this.state.open}
         >
           <div className={classes.toolbarIcon}>
-            <IconButton onClick={this.handleDrawerClose}>
-              <ChevronLeftIcon />
-            </IconButton>
+            <IconButton onClick={this.handleDrawerClose}> <ChevronLeftIcon /></IconButton>
           </div>
           <Divider />
           {<List><ListItem getTasks={this.getTasks} /></List>}
-          <Divider />
-          {/* <List>{secondaryListItems}</List> */}
+          
         </Drawer>
         <main className={classes.content}>
           <div className={classes.appBarSpacer} />
@@ -110,10 +93,10 @@ class Dashboard extends React.Component {
             <PendingTasks tasks={this.state.tasks} />
           </Typography>
           <div className={classes.spaceDivider}></div>
-          <Typography variant="h6" gutterBottom>
+          {/* <Typography variant="h6" gutterBottom>
             Completed Tasks
           </Typography>
-            <CompletedTasks />
+            <CompletedTasks /> */}
           <div className={classes.tableContainer}>
           </div>
         </main>
