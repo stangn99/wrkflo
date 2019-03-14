@@ -21,7 +21,7 @@
   },
   "scripts": {
     "start": "concurrently --kill-others-on-fail \"npm run server\" \"npm run client\"",
-    "server": "nodemon ./index.js --ignore src/",
+    "server": "nodemon ./index.js --ignore src/ --history-api-fallback",
     "client": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",

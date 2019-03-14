@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import AlertDialog from '../AlertDialog/AlertDialog';
 import EnhancedTableToolbar from '../DataTable/EnhancedTableToolbar';
 import EnhancedTableHead from '../DataTable/EnhancedTableHead';
@@ -52,7 +52,6 @@ class pendingData extends React.Component {
     this.setState({ deleteAlert: false });
   };
 
-
   handleRequestSort = (event, property) => {
     const orderBy = property;
     let order = 'desc';
@@ -104,9 +103,6 @@ class pendingData extends React.Component {
     return this.state.selected.indexOf(id) !== -1;
   }
 
-  handleTaskInfo = () => {
-
-  }
   render() {
     const { classes } = this.props;
     const {order, orderBy, selected, rowsPerPage, page } = this.state;
@@ -130,11 +126,9 @@ class pendingData extends React.Component {
                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                 .map(n => {
                   const isSelected = this.isSelected(n._id);
-                  
                   return (
                     <TableRow
                       hover
-                      // onClick={event => this.handleClick(event, n._id)}
                       role="checkbox"
                       aria-checked={isSelected}
                       tabIndex={-1}
@@ -144,10 +138,8 @@ class pendingData extends React.Component {
                       <TableCell padding="checkbox">
                         <Checkbox checked={isSelected} onClick={event => this.handleClick(event, n._id)}/>
                       </TableCell>
-                      <TableCell component="th" scope="row" padding="none">
-                        <Router>
-                          <Link to={`/task/${n._id}`}>{n.taskName}</Link>
-                        </Router>
+                      <TableCell component="th" scope="row" padding="none">                 
+                        <Link to={`/task/${n._id}`}>{n.taskName}</Link>                     
                       </TableCell>
                       <TableCell align="left">{n.editorName}</TableCell>
                       <TableCell align="left">{n.clientName}</TableCell>
@@ -157,7 +149,6 @@ class pendingData extends React.Component {
                     </TableRow>
                   );
                 })}
-              
             </TableBody>
           </Table>
         </div>

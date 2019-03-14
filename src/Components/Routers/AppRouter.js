@@ -8,14 +8,12 @@ class AppRouter extends Component {
   render() {
     return (
       <Fragment>
-
         <Router>
           <Switch>
-            <Route path="/" component={Dashboard} exact />
-            <Route path="/task/:id" component={TaskDetails} />
-          </Switch>
+              <Route path="/" component={Dashboard} exact />
+              <Route path="/task/:taskId" component={TaskDetails} />
+            </Switch>
         </Router>
-        <Dashboard />
       </Fragment>
     );
   }
