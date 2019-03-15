@@ -1,7 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 import PendingTasks from '../PendingTasks/PendingTasks';
-import CompletedTasks from '../CompletedTasks/CompletedTasks';
+// import CompletedTasks from '../CompletedTasks/CompletedTasks';
 import { dashboardStyles } from '../Styles/materialStyles';
 import classNames from 'classnames';
 import { withStyles } from '@material-ui/core/styles';
@@ -13,6 +13,7 @@ import ListItem from '../ListItems/ListItems';
 
 
 class Dashboard extends React.Component {
+  
   state = {
     open: true, 
     tasks: [],

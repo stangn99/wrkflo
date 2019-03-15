@@ -1,7 +1,8 @@
 import React, { Component, Fragment } from 'react';
 import TaskDetails from '../TaskDetails/TaskDetails';
-import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import Dashboard from '../Dashboard/Dashboard';
+import NotFound from '../NotFound/NotFound';
 
 
 class AppRouter extends Component {
@@ -12,6 +13,7 @@ class AppRouter extends Component {
           <Switch>
               <Route path="/" component={Dashboard} exact />
               <Route path="/task/:taskId" component={TaskDetails} />
+              <Route component={NotFound} />
             </Switch>
         </Router>
       </Fragment>
