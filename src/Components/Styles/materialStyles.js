@@ -71,7 +71,6 @@ export const styles = theme => ({
 
 const drawerWidth = 240;
 export const dashboardStyles = theme => ({
-  
   spaceDivider: {
     marginTop: 35, 
     marginBottom: 35
@@ -160,3 +159,21 @@ export const listStyles = theme => ({
     backgroundColor: theme.palette.background.paper,
   },
 });
+
+
+export const taskDetailItem = theme => ({
+  paper: {
+    display: 'flex',
+    paddingTop: theme.spacing.unit * 10,
+    paddingLeft: theme.spacing.unit * 5,
+    paddingBottom: theme.spacing.unit * 5,
+  },
+  content: {
+    flexGrow: 1,
+    height: '100vh',
+    overflow: 'auto',
+  }, 
+  label: {
+    color: '#84A72B'
+  }
+})

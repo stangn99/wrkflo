@@ -21,7 +21,7 @@ router.get('/', async(req, res, next) => {
 // task_id is stored in the Req.param
 router.get('/:task_id', async(req, res, next) => {
   const taskId = req.params.task_id;
-  console.log(taskId)
+  
   try {
     const doc = await TaskSchema.findById(taskId);
     res.status(200).json({
